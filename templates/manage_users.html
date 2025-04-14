@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin-top: 50px;
+        }
+
+        /* Card Styling */
+        .card {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        /* Table Styling */
+        .table {
+            margin-top: 20px;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        /* Curved Top Borders for Table Header */
+        .table thead th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        .table thead th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+        /* Curved Bottom Borders for Table */
+        .table tbody tr:last-child td:first-child {
+            border-bottom-left-radius: 10px;
+        }
+
+        .table tbody tr:last-child td:last-child {
+            border-bottom-right-radius: 10px;
+        }
+
+        /* Title */
+        h2 {
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* Adjust Date of Birth Column Width */
+        .table th:nth-child(7),
+        .table td:nth-child(7) {
+            min-width: 120px; /* Adjust width as needed */
+            text-align: center;
+        }
+
+        /* No Users Message */
+        p.text-center {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Back Button */
+        .btn-secondary {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="text-center mb-4">User Details</h2>
+        <div class="card">
+            {% if user_profiles %}
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Guardian Name</th>
+                            <th>Student Mobile</th>
+                            <th>Guardian Mobile</th>
+                            <th>Address</th>
+                            <th>Education</th>
+                            <th>Date of Birth</th>
+                            <th>Room Number</th>
+                            <th>Bed Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for profile in user_profiles %}
+                        <tr>
+                            <td>{{ profile.name }}</td>
+                            <td>{{ profile.guardian_name }}</td>
+                            <td>{{ profile.student_mobile }}</td>
+                            <td>{{ profile.guardian_mobile }}</td>
+                            <td>{{ profile.residential_address }}</td>
+                            <td>{{ profile.education }}</td>
+                            <td>{{ profile.dob|date:"Y-m-d" }}</td>
+                            <td>{% if profile.room_info %}{{ profile.room_info.room.room_number }}{% else %}Not Assigned{% endif %}</td>
+                            <td>{% if profile.room_info %}{{ profile.room_info.bed_no }}{% else %}Not Assigned{% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="text-center text-muted">No user profiles found.</p>
+            {% endif %}
+        </div>
+
+        <!-- Back to Dashboard Button -->
+        <div class="text-center mt-3">
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

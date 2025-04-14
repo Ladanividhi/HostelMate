@@ -1,0 +1,143 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <h2 class="profile-header">Your Profile</h2>
+
+        {% if user_profile %}
+        <div class="profile-body">
+            <div class="profile-picture-container">
+                <img src="{{ user_profile.profile_picture.url|default:'/static/icons/profile_pic.jpeg' }}" 
+                     alt="Profile Picture" class="profile-picture">
+            </div>
+
+            <div class="profile-info-container">
+                <div class="profile-info-box">
+                    <p><strong>Room Number:</strong> {{ user_room.room.room_number|default:"Not Assigned" }}</p>
+                    <p><strong>Bed Number:</strong> {{ user_room.bed_no|default:"Not Assigned" }}</p>
+                </div>
+
+                <div class="profile-info-box">
+                    <p><strong>Full Name:</strong> {{ user_profile.name|default:"Not Provided" }}</p>
+                    <p><strong>Guardian Name:</strong> {{ user_profile.guardian_name|default:"Not Provided" }}</p>
+                </div>
+
+                <div class="profile-info-box">
+                    <p><strong>Student Mobile:</strong> {{ user_profile.student_mobile|default:"Not Provided" }}</p>
+                    <p><strong>Guardian Mobile:</strong> {{ user_profile.guardian_mobile|default:"Not Provided" }}</p>
+                </div>
+
+                <div class="profile-info-box">
+                    <p><strong>Residential Address:</strong> {{ user_profile.residential_address|default:"Not Provided" }}</p>
+                    <p><strong>Date of Birth:</strong> {{ user_profile.dob|default:"Not Provided" }}</p>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="error-message">Profile not found. Please complete your profile.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Go to Dashboard Button - Outside the Card -->
+<div class="dashboard-btn-container">
+    <a href="{% url 'user_dashboard' %}" class="dashboard-btn">Go to Dashboard</a>
+</div>
+
+<style>
+    /* Center the profile card properly */
+    .profile-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+    }
+
+    .profile-card {
+        width: 80%;
+        max-width: 700px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+    }
+
+    .profile-header {
+        font-size: 24px;
+        font-weight: bold;
+        color: #343a40;
+        margin-bottom: 20px;
+    }
+
+    .profile-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-picture-container {
+        margin-bottom: 20px;
+    }
+
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 3px solid #000;
+    }
+
+    .profile-info-container {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* Centering the profile info boxes */
+        gap: 12px;
+    }
+
+    .profile-info-box {
+        width: 48%;
+        background-color: #ffffff;
+        border: 1px solid #e9ecef;
+        padding: 12px;
+        border-radius: 8px;
+        text-align: left;
+    }
+
+    .profile-info-box p {
+        margin: 0;
+        font-size: 14px;
+        color: #495057;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 16px;
+        margin-top: 20px;
+    }
+
+    /* Dashboard button outside the card */
+    .dashboard-btn-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    /* Button with black and hover to grey */
+    .dashboard-btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: #000;
+        color: #fff;
+        font-size: 16px;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    .dashboard-btn:hover {
+        background-color: #6c757d;
+    }
+</style>
+{% endblock %}

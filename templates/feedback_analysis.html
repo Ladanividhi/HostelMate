@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        .chart-container {
+            width: 500px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .dashboard-btn {
+            background-color: #000;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .dashboard-btn:hover {
+            background-color: #343a40;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Food Quality & Sentiment Analysis</h2>
+
+    <!-- Breakfast Ratings -->
+    <div class="chart-container">
+        <h3>Breakfast Ratings</h3>
+        <canvas id="breakfastChart"></canvas>
+    </div>
+
+    <!-- Lunch Ratings -->
+    <div class="chart-container">
+        <h3>Lunch Ratings</h3>
+        <canvas id="lunchChart"></canvas>
+    </div>
+
+    <!-- Dinner Ratings -->
+    <div class="chart-container">
+        <h3>Dinner Ratings</h3>
+        <canvas id="dinnerChart"></canvas>
+    </div>
+
+    <!-- Sentiment Analysis Chart -->
+    <div class="chart-container">
+        <h3>Sentiment Analysis</h3>
+        <canvas id="sentimentChart"></canvas>
+    </div>
+
+    <br>
+    <a href="{% url 'admin_dashboard' %}" class="btn dashboard-btn">Back to Dashboard</a>
+
+    <script>
+        // Parse JSON data from Django
+        var dataJson = '{{ data_json|safe }}';
+        var ratings = JSON.parse(dataJson);
+
+        var ratingLabels = ["1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"];
+
+        function createBarChart(ctxId, data, label) {
+            var ctx = document.getElementById(ctxId).getContext("2d");
+            new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: ratingLabels,
+                    datasets: [{
+                        label: label,
+                        data: Object.values(data),
+                        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4CAF50", "#9966FF"]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        // Create Bar Charts for Meal Ratings
+        createBarChart("breakfastChart", ratings.breakfast, "Breakfast Ratings");
+        createBarChart("lunchChart", ratings.lunch, "Lunch Ratings");
+        createBarChart("dinnerChart", ratings.dinner, "Dinner Ratings");
+
+        // Create Pie Chart for Sentiment Analysis
+        var ctxSentiment = document.getElementById("sentimentChart").getContext("2d");
+        new Chart(ctxSentiment, {
+            type: "pie",
+            data: {
+                labels: ["Positive", "Neutral", "Negative"],
+                datasets: [{
+                    label: "Sentiments",
+                    data: [ratings.sentiments.positive, ratings.sentiments.neutral, ratings.sentiments.negative],
+                    backgroundColor: ["#4CAF50", "#FFC107", "#FF5733"]
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+
+</body>
+</html>

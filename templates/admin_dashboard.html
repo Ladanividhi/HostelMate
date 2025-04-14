@@ -1,0 +1,74 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <ul>
+            <li><a href="{% url 'admin_dashboard' %}">Home</a></li>
+            <li><a href="{% url 'feedback_analysis' %}">Feedback Analysis</a></li>    
+            <li><a href="{% url 'view_all_requests' %}">View All Requests</a></li>
+            <li><a href="{% url 'view_all_vacancies' %}">View Vacancies</a></li>
+            <li><a href="{% url 'view_all_gatepasses' %}">View Gatepasses</a></li>
+            <li><a href="{% url 'manage_users' %}">View Users</a></li>
+            <li class="logout-option"><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Icons Section -->
+        <div class="icons-container">
+            <div class="icon-card">
+                <a href="{% url 'feedback_analysis' %}">
+                    <img src="{% static 'icons/feedback.png' %}" alt="Feedback Analysis">
+                    <p>Feedback Analysis</p>
+                </a>
+            </div>
+            <div class="icon-card">
+                <a href="{% url 'view_all_requests' %}">
+                    <img src="{% static 'icons/request.png' %}" alt="Requests">
+                    <p>View All Requests</p>
+                </a>
+            </div>
+            <div class="icon-card">
+                <a href="{% url 'view_all_vacancies' %}">
+                    <img src="{% static 'icons/vacancy.png' %}" alt="Vacancies">
+                    <p>View Vacancies</p>
+                </a>
+            </div>
+            <div class="icon-card">
+                <a href="{% url 'view_all_gatepasses' %}">
+                    <img src="{% static 'icons/gatepass.png' %}" alt="Gatepasses">
+                    <p>View Gatepasses</p>
+                </a>
+            </div>
+            <div class="icon-card">
+                <a href="{% url 'manage_users' %}">
+                    <img src="{% static 'icons/users.png' %}" alt="Users">
+                    <p>View Users</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .logout-option {
+        margin-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 10px;
+    }
+    
+    .logout-option a {
+        color: #ff4444 !important;
+        font-weight: bold;
+    }
+    
+    .logout-option a:hover {
+        color: #ff0000 !important;
+    }
+</style>
+{% endblock %}

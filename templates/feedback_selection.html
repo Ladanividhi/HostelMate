@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Selection</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+        }
+
+        /* Card Styling */
+        .card {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: #000;
+            border: none;
+            padding: 12px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: #333;
+        }
+
+        /* Secondary Button (for past feedbacks) */
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        /* Remove Blue Hover/Focus Effect */
+        .btn-primary:focus,
+        .btn-primary:active,
+        .btn-secondary:focus,
+        .btn-secondary:active {
+            outline: none !important;
+            box-shadow: none !important;
+            background-color: #000 !important;
+            border: none !important;
+        }
+
+        /* Link Styling */
+        .text-center a {
+            color: #000;
+            text-decoration: none;
+            margin-top: 10px;
+            display: block;
+            font-weight: bold;
+        }
+
+        .text-center a:hover {
+            text-decoration: underline;
+        }
+
+        /* Dashboard Button - Similar to Other Buttons */
+        .dashboard-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .dashboard-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #000;
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dashboard-btn:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Display Messages -->
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="container">
+        <h2 class="text-center mb-4">Give Your Feedback</h2>
+        <div class="card">
+            <p class="text-center">Select a meal to provide your feedback:</p>
+            <div class="d-grid gap-2">
+                <a href="/feedback/form/?meal=Breakfast" class="btn btn-primary">Breakfast</a>
+                <a href="/feedback/form/?meal=Lunch" class="btn btn-primary">Lunch</a>
+                <a href="/feedback/form/?meal=Dinner" class="btn btn-primary">Dinner</a>
+                <br>
+                <a href="{% url 'view_past_feedbacks' %}" class="btn btn-secondary mt-3">View Past Feedbacks</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Go to Dashboard Button - Outside the Card -->
+    <div class="dashboard-btn-container">
+        <a href="{% url 'user_dashboard' %}" class="dashboard-btn">Go to Dashboard</a>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+

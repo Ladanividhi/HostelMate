@@ -1,0 +1,109 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <h2>Room Occupancy Status</h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Room Number</th>
+                        <th>Bed A</th>
+                        <th>Bed B</th>
+                        <th>Bed C</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in room_data %}
+                    <tr>
+                        <td>{{ room.room_number }}</td>
+                        {% for bed in room.beds %}
+                        <td>
+                            {% if bed.user %}
+                            {{ bed.user }}
+                            {% else %}
+                            <span class="text-danger">Vacant</span>
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Back to Dashboard Button -->
+        <div class="d-grid d-flex justify-content-center mt-3">
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-primary w-50 no-underline">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .container {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 0;
+    }
+    .form-container {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 800px;
+        text-align: center;
+    }
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .table {
+        width: 100%;
+        margin-bottom: 1.5rem;
+        background-color: transparent;
+        border-collapse: collapse;
+    }
+    .table th,
+    .table td {
+        padding: 0.75rem;
+        vertical-align: middle;
+        border-top: 1px solid #dee2e6;
+    }
+    .table thead th {
+        background-color: #000;
+        color: #fff;
+        border-bottom: 2px solid #dee2e6;
+    }
+    .btn-primary {
+        background-color: #000;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+        text-decoration: none; /* Removes underline */
+    }
+    .btn-primary:hover {
+        background-color: #333;
+    }
+    .text-danger {
+        color: #dc3545;
+        font-weight: bold;
+    }
+    .d-grid {
+        margin-top: 20px;
+    }
+    .no-underline {
+        text-decoration: none !important;
+    }
+</style>
+{% endblock %}

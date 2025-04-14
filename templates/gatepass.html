@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate GatePass</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+        }
+
+        /* Card Styling */
+        .card {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        /* Form Label Styles */
+        .form-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Input and Textarea Styles */
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        /* Submit Button */
+        .btn-primary {
+            background-color: #000;
+            border: none;
+            padding: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #333;
+        }
+
+        /* Remove Blue Hover/Focus Effect */
+        .btn-primary:focus, 
+        .btn-primary:active {
+            outline: none !important;
+            box-shadow: none !important;
+            background-color: #000 !important;
+            border: none !important;
+        }
+
+        /* Link Styling */
+        .text-center a {
+            color: #000;
+            text-decoration: none;
+            margin-top: 10px;
+            display: block;
+            font-weight: bold;
+        }
+
+        .text-center a:hover {
+            text-decoration: underline;
+        }
+
+        /* Dashboard button outside the card */
+        .dashboard-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* Button with black and hover to grey */
+        .dashboard-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #000;
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dashboard-btn:hover {
+            background-color: #6c757d;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="text-center mb-4">Generate GatePass</h2>
+        <div class="card">
+            <form method="POST" action="{% url 'gatepass' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_reason" class="form-label">Reason</label>
+                    <textarea class="form-control" id="id_reason" name="reason" rows="3" required></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="id_departure_date" class="form-label">Departure Date</label>
+                        <input type="date" class="form-control" id="id_departure_date" name="departure_date" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_return_date" class="form-label">Return Date</label>
+                        <input type="date" class="form-control" id="id_return_date" name="return_date" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="id_departure_time" class="form-label">Departure Time</label>
+                        <input type="time" class="form-control" id="id_departure_time" name="departure_time" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_return_time" class="form-label">Return Time</label>
+                        <input type="time" class="form-control" id="id_return_time" name="return_time" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3 w-100">Generate GatePass</button>
+            </form>
+            <div class="text-center mt-3">
+                <a href="{% url 'view_gatepasses' %}">View Past GatePasses</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Go to Dashboard Button - Outside the Card -->
+    <div class="dashboard-btn-container">
+        <a href="{% url 'user_dashboard' %}" class="dashboard-btn">Go to Dashboard</a>
+    </div>
+
+    <!-- JavaScript for Date Validation -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let today = new Date().toISOString().split("T")[0];  // Get today's date in YYYY-MM-DD format
+            
+            let departureInput = document.getElementById("id_departure_date");
+            let returnInput = document.getElementById("id_return_date");
+
+            // Set min attribute to prevent selecting past dates
+            departureInput.setAttribute("min", today);
+            returnInput.setAttribute("min", today);
+
+            // Ensure return date is not before departure date
+            departureInput.addEventListener("change", function () {
+                returnInput.setAttribute("min", this.value);
+            });
+
+            returnInput.addEventListener("change", function () {
+                if (this.value < departureInput.value) {
+                    alert("Return date cannot be before departure date!");
+                    this.value = departureInput.value; // Reset to valid date
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
