@@ -1,16 +1,16 @@
-# HostelMate - Hostel Management System
+# 🏨HostelMate - Hostel Management System
 
-## Overview
+## 🌟Overview
 HostelMate is a comprehensive hostel management system developed using Django framework. This project aims to streamline and automate various aspects of hostel management, making it easier for administrators to manage hostel operations and for students to access hostel-related services. (Still planning for adding better features)
 
-## Contributors
+## 🤝Contributors
 This project is a collaborative effort between:
 - Ladani Vidhi
 - Harmi Kotak
 
 Developed as part of our Django project coursework, we've worked together to create a robust and user-friendly hostel management solution.
 
-## Features
+## 🚀Features
 - User Authentication and Authorization
 - Student Registration and Profile Management
 - Room Allocation and Management
@@ -19,13 +19,13 @@ Developed as part of our Django project coursework, we've worked together to cre
 - Admin Dashboard
 - Student Dashboard
 
-## Technology Stack
+## ⚙️Technology Stack
 - **Backend Framework:** Django
 - **Database:** SQLite
 - **Frontend:** HTML, CSS, JavaScript
 - **Template Engine:** Django Templates
 
-## Project Structure
+## 📁Project Structure
 ```
 HostelMate/
 ├── Hostel_Management/     # Main project directory
@@ -36,7 +36,7 @@ HostelMate/
 └── manage.py           # Django management script
 ```
 
-## Installation and Setup
+## 🖥️Installation and Setup
 1. Clone the repository
 ```bash
 git clone https://github.com/Ladanividhi/HostelMate.git
@@ -93,12 +93,12 @@ python manage.py runserver
 - Analyze mess feedback
 - Monitor overall hostel operations via the admin dashboard
 
-## Documentation
+## 📚Documentation
 Detailed documentation is available in the following files:
 - `HostelMate_SRS.pdf` - Software Requirements Specification
 - `Project Implementation_HostelMateFinal.pdf` - Project Implementation Details
 
-## Contributing
+## 😊Contributing
 This project was developed as part of our academic coursework. While it's not actively maintained for contributions, feel free to fork the repository and make improvements.
 
 ## 📌 Closing Remarks 
