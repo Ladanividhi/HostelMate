@@ -66,8 +66,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-## Usage
-### 🔐 Login
+## 🔐 Login
 
 - **Admin Login**:  
   The admin can log in using superuser credentials.  
@@ -79,22 +78,22 @@ python manage.py runserver
   Hostelites can log in through the **Login Page** using their credentials.
   New users can sign up via the **Signup Page** and create their accounts.
 
-### 🔍 Explore Features
+## 🔍 Explore Features
 
-#### 👨‍🎓 For Students:
+### 👨‍🎓 For Students:
 - Submit complaints
 - Give feedback (food)
 - View room and bed allocation status
 - Generate gatepass
 
-#### 👩‍💼 For Admins:
+### 👩‍💼 For Admins:
 - View student profiles
 - Assign rooms and beds
 - View complaints
 - Analyze mess feedback
 - Monitor overall hostel operations via the admin dashboard
 
-### Documentation
+## Documentation
 Detailed documentation is available in the following files:
 - `HostelMate_SRS.pdf` - Software Requirements Specification
 - `Project Implementation_HostelMateFinal.pdf` - Project Implementation Details
